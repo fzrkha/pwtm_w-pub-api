@@ -2,22 +2,22 @@
 const GENERATION_API_URL = 'https://pokeapi.co/api/v2/generation';
 const ARTWORK_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork';
 
-const MAP_URL = 'https://static.wikia.nocookie.net/pokemon/images';
+const MAP_URL = '/img/regions';
 
-// Starter, peta wilayah (Pokémon Wiki di Fandom), dan warna khas setiap wilayah
+// Starter dan warna khas setiap wilayah; peta ada di public/img/regions/{wilayah}.webp
 const regionThemes = {
-    kanto:  { starters: [1, 4, 7],       map: "8/85/Kanto_Let%27s_Go%2C_Pikachu%21_and_Let%27s_Go%2C_Eevee%21.png", colors: ['#c0392b', '#7b1e15'] },
-    johto:  { starters: [152, 155, 158], map: 'f/fe/Johto_HGSS.png',                   colors: ['#b5832a', '#6b4510'] },
-    hoenn:  { starters: [252, 255, 258], map: '8/85/Hoenn_ORAS.png',                   colors: ['#1e8a5c', '#0d4a33'] },
-    sinnoh: { starters: [387, 390, 393], map: 'f/f8/Sinnoh_BDSP.png',                  colors: ['#3d5a9e', '#1d2c55'] },
-    unova:  { starters: [495, 498, 501], map: '8/81/Unova_Black_2_and_White_2.png',    colors: ['#4b4f58', '#1c1e23'] },
-    kalos:  { starters: [650, 653, 656], map: 'f/f1/Kalos.jpg',                        colors: ['#2a7fbf', '#123f66'] },
-    alola:  { starters: [722, 725, 728], map: '6/6c/Alola.png',                        colors: ['#d9692a', '#8a3412'] },
-    galar:  { starters: [810, 813, 816], map: 'a/a4/Galar_map.png',                    colors: ['#8e3fa8', '#46185a'] },
-    paldea: { starters: [906, 909, 912], map: 'a/a1/Paldea.jpg',                       colors: ['#c2364f', '#5e1426'] }
+    kanto:  { starters: [1, 4, 7],       colors: ['#c0392b', '#7b1e15'] },
+    johto:  { starters: [152, 155, 158], colors: ['#b5832a', '#6b4510'] },
+    hoenn:  { starters: [252, 255, 258], colors: ['#1e8a5c', '#0d4a33'] },
+    sinnoh: { starters: [387, 390, 393], colors: ['#3d5a9e', '#1d2c55'] },
+    unova:  { starters: [495, 498, 501], colors: ['#4b4f58', '#1c1e23'] },
+    kalos:  { starters: [650, 653, 656], colors: ['#2a7fbf', '#123f66'] },
+    alola:  { starters: [722, 725, 728], colors: ['#d9692a', '#8a3412'] },
+    galar:  { starters: [810, 813, 816], colors: ['#8e3fa8', '#46185a'] },
+    paldea: { starters: [906, 909, 912], colors: ['#c2364f', '#5e1426'] }
 };
 
-const defaultTheme = { starters: [], map: null, colors: ['#6c757d', '#343a40'] };
+const defaultTheme = { starters: [], colors: ['#6c757d', '#343a40'] };
 
 // Elemen HTML
 const generationList = document.getElementById('generationList');
@@ -53,8 +53,8 @@ function artworkUrl(id) {
     return `${ARTWORK_URL}/${id}.png`;
 }
 
-function mapUrl(path) {
-    return `${MAP_URL}/${path}/revision/latest/scale-to-width-down/800`;
+function mapUrl(region) {
+    return `${MAP_URL}/${region}.webp`;
 }
 
 function formatRegion(region) {
@@ -137,8 +137,8 @@ function renderGenerations() {
         const regionName = formatRegion(generation.region);
 
         // Jika peta gagal dimuat, kartu tetap tampil dengan gradien warna wilayah
-        const map = theme.map
-            ? `<img class="region-map" src="${mapUrl(theme.map)}" alt="" loading="lazy" onerror="this.remove()">`
+        const map = regionThemes[generation.region]
+            ? `<img class="region-map" src="${mapUrl(generation.region)}" alt="" loading="lazy" onerror="this.remove()">`
             : '';
 
         const starters = theme.starters.map(id => `
