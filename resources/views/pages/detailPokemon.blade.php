@@ -133,6 +133,45 @@
             </div>
         </div>
 
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h4 class="fw-bold mb-0">Moveset per Level</h4>
+
+            <select id="movesetVersion"
+                    class="form-select w-auto"
+                    aria-label="Pilih versi game">
+            </select>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-0">
+                <div id="movesetLoading" class="text-center text-muted py-4">
+                    <div class="spinner-border spinner-border-sm text-danger me-2"></div>
+                    Memuat moveset...
+                </div>
+
+                <p id="movesetEmpty" class="text-center text-muted py-4 mb-0 d-none">
+                    Pokémon ini tidak mempelajari move lewat level.
+                </p>
+
+                <div class="table-responsive">
+                    <table id="movesetTable" class="table table-hover align-middle mb-0 d-none">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4" style="width: 90px;">Level</th>
+                                <th>Move</th>
+                                <th>Tipe</th>
+                                <th>Kategori</th>
+                                <th class="text-end">Power</th>
+                                <th class="text-end">Akurasi</th>
+                                <th class="text-end pe-4">PP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="movesetBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <div class="d-flex justify-content-between gap-3 mt-5">
 
             <button id="previousPokemon"
